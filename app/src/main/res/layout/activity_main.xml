@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/items_count_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="72sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="13" />
+    <data>
 
-    <Button
-        android:id="@+id/add_new_order_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_a_new_order"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/items_count_text"
-        app:layout_constraintStart_toStartOf="@+id/items_count_text"
-        app:layout_constraintTop_toBottomOf="@+id/items_count_text"
-        app:layout_constraintVertical_bias="0.048" />
+        <variable
+            name="viewModel"
+            type="yalexaner.items.MainViewModel" />
+    </data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:id="@+id/items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(viewModel.items)}"
+            android:textSize="72sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="13" />
+
+        <Button
+            android:id="@+id/add_new_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.addItems(7)}"
+            android:text="@string/add_a_new_order"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/items"
+            app:layout_constraintStart_toStartOf="@+id/items"
+            app:layout_constraintTop_toBottomOf="@+id/items"
+            app:layout_constraintVertical_bias="0.048" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

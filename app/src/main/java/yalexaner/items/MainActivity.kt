@@ -3,6 +3,7 @@ package yalexaner.items
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import yalexaner.items.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -10,17 +11,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         val viewModel: MainViewModel by viewModels()
 
-        viewModel.items.observe(this) {
-            binding.itemsCountText.text = viewModel.items.value.toString()
-        }
-
-        binding.addNewOrderBtn.setOnClickListener {
-            viewModel.addItems(7)
-        }
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
     }
 }
