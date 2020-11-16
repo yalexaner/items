@@ -1,10 +1,10 @@
-package yalexaner.items
+package yalexaner.items.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class MainViewModel : ViewModel() {
+class ItemsViewModel : ViewModel() {
     private var _items = MutableLiveData(0)
 
     val items: LiveData<Int> = _items
