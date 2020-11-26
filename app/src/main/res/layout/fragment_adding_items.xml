@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/items_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isScrollContainer="true"
+            android:hint="@string/value_zero"
+            android:inputType="number"
+            android:textSize="@dimen/items_count_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:importantForAutofill="no" />
+
+        <Button
+            android:id="@+id/add_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:enabled="false"
+            android:text="@string/button_add_items"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/items_input"
+            app:layout_constraintStart_toStartOf="@+id/items_input"
+            app:layout_constraintTop_toBottomOf="@+id/items_input"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textView"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginTop="10dp"-->
+        <!--            android:textSize="@dimen/items_count_size"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/editTextNumber"-->
+        <!--            tools:layout_editor_absoluteX="114dp"-->
+        <!--            tools:text="Items" />-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
