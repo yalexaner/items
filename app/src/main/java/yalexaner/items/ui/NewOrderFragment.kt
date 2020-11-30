@@ -9,17 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import yalexaner.items.R
-import yalexaner.items.data.ItemsViewModel
+import yalexaner.items.data.OrderViewModel
 import yalexaner.items.databinding.FragmentAddingItemsBinding
 
-class AddingItemsFragment : Fragment() {
+class NewOrderFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
 
         val binding = FragmentAddingItemsBinding.inflate(inflater, container, false)
-        val viewModel: ItemsViewModel by activityViewModels()
+        val viewModel: OrderViewModel by activityViewModels()
 
         // enable button when there is a number
         binding.itemsInput.doOnTextChanged { text, _, _, _ ->

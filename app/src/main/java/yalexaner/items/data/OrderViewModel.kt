@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ItemsViewModel : ViewModel() {
+class OrderViewModel : ViewModel() {
     private var _items = MutableLiveData(0)
 
     val items: LiveData<Int> = _items

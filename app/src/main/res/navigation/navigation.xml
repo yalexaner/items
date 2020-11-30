@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/addingItemsFragment"
-        android:name="yalexaner.items.ui.AddingItemsFragment"
+        android:name="yalexaner.items.ui.NewOrderFragment"
         android:label="AddingItemsFragment"
         tools:layout="@layout/fragment_adding_items" >
         <action

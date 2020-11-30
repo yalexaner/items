@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import yalexaner.items.R
-import yalexaner.items.data.ItemsViewModel
+import yalexaner.items.data.OrderViewModel
 import yalexaner.items.databinding.FragmentItemsBinding
 
 class ItemsFragment : Fragment() {
@@ -19,7 +19,7 @@ class ItemsFragment : Fragment() {
     ): View {
         val binding: FragmentItemsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_items, container, false)
-        val viewModel: ItemsViewModel by activityViewModels()
+        val viewModel: OrderViewModel by activityViewModels()
 
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
