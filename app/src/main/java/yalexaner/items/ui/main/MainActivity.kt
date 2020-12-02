@@ -1,4 +1,4 @@
-package yalexaner.items.ui
+package yalexaner.items.ui.main
 
 import android.content.Intent
 import android.os.Build
@@ -13,6 +13,7 @@ import yalexaner.items.data.OrderViewModel
 import yalexaner.items.data.OrderViewModelFactory
 import yalexaner.items.databinding.ActivityMainBinding
 import yalexaner.items.db.Order
+import yalexaner.items.ui.neworder.NewOrderActivity
 import java.time.OffsetDateTime
 
 class MainActivity : AppCompatActivity() {
