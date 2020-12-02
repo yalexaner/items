@@ -1,15 +1,25 @@
 package yalexaner.items.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
+import yalexaner.items.db.Order
+import yalexaner.items.db.OrderRepository
 
-class OrderViewModel : ViewModel() {
-    private var _items = MutableLiveData(0)
+class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
 
-    val items: LiveData<Int> = _items
+    val items: LiveData<Int> = repository.itemsCount.asLiveData()
 
-    fun addItems(items: Int) {
-        _items.value = (_items.value ?: 0) + items
+    fun addItems(order: Order) = viewModelScope.launch {
+        repository.insert(order)
+    }
+}
+
+class OrderViewModelFactory(private val repository: OrderRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(OrderViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return OrderViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
