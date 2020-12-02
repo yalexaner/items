@@ -38,6 +38,7 @@ abstract class OrderRoomDatabase : RoomDatabase() {
     }
 
     private class OrderDatabaseCallback(private val scope: CoroutineScope) :
+
         RoomDatabase.Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {

@@ -9,7 +9,7 @@ import yalexaner.items.db.OrderRoomDatabase
 class OrdersApplication : Application() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
+    private val database by lazy { OrderRoomDatabase.getDatabase(this, applicationScope) }
 
-    val database by lazy { OrderRoomDatabase.getDatabase(this, applicationScope) }
     val repository by lazy { OrderRepository(database.orderDao()) }
 }

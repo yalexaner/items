@@ -1,4 +1,4 @@
-package yalexaner.items
+package yalexaner.items.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
+import yalexaner.items.R
 import yalexaner.items.databinding.ActivityNewOrderBinding
 
 class NewOrderActivity : AppCompatActivity() {
