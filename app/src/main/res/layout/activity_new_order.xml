@@ -10,15 +10,15 @@
             android:id="@+id/items_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:isScrollContainer="true"
             android:hint="@string/value_zero"
+            android:importantForAutofill="no"
             android:inputType="number"
+            android:isScrollContainer="true"
             android:textSize="@dimen/items_count_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:importantForAutofill="no" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/add_items"
@@ -33,14 +33,5 @@
             app:layout_constraintTop_toBottomOf="@+id/items_input"
             app:layout_constraintVertical_bias="0.0" />
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="10dp"-->
-        <!--            android:textSize="@dimen/items_count_size"-->
-        <!--            app:layout_constraintTop_toBottomOf="@+id/editTextNumber"-->
-        <!--            tools:layout_editor_absoluteX="114dp"-->
-        <!--            tools:text="Items" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
