@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/itemsFragment">
+
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="yalexaner.items.ui.main.ItemsFragment"
+        tools:layout="@layout/fragment_items"
+        android:label="ItemsFragment" >
+        <action
+            android:id="@+id/action_itemsFragment_to_ordersListFragment"
+            app:destination="@id/ordersListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersListFragment"
+        tools:layout="@layout/fragment_orders_list"
+        android:name="yalexaner.items.ui.main.OrdersListFragment"
+        android:label="OrdersListFragment" />
+</navigation>

@@ -10,6 +10,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import yalexaner.items.OrdersApplication
 import yalexaner.items.R
 import yalexaner.items.data.OrderViewModel
@@ -37,6 +38,10 @@ class ItemsFragment : Fragment() {
             viewModel = orderViewModel
             lifecycleOwner = this@ItemsFragment
         }
+
+        binding.items.setOnClickListener(
+            Navigation.createNavigateOnClickListener(R.id.action_itemsFragment_to_ordersListFragment)
+        )
 
         binding.addNewOrder.setOnClickListener {
             val intent = Intent(context, NewOrderActivity::class.java)
