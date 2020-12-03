@@ -34,7 +34,7 @@ class ItemsFragment : Fragment() {
         val binding: FragmentItemsBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_items, container, false)
 
-        binding.run {
+        with(binding) {
             viewModel = orderViewModel
             lifecycleOwner = this@ItemsFragment
         }
