@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import yalexaner.items.OrdersApplication
 import yalexaner.items.R
+import yalexaner.items.data.OrderListAdapter
 import yalexaner.items.data.OrderViewModel
 import yalexaner.items.data.OrderViewModelFactory
 import yalexaner.items.databinding.FragmentOrdersListBinding
@@ -21,7 +22,7 @@ class OrdersListFragment : Fragment() {
     ): View {
         val binding: FragmentOrdersListBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_orders_list, container, false)
-        val orderViewModel: OrderViewModel by activityViewModels() {
+        val orderViewModel: OrderViewModel by activityViewModels {
             OrderViewModelFactory((activity?.application as OrdersApplication).repository)
         }
         val orderAdapter = OrderListAdapter()

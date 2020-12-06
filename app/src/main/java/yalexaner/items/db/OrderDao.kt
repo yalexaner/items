@@ -16,6 +16,9 @@ interface OrderDao {
     @Query("SELECT total(items) FROM orders")
     fun getItemsCount(): Flow<Int>
 
+    @Query("SELECT total(items) FROM orders WHERE date('now') = date(date)")
+    fun getItemsCountForToday(): Flow<Int>
+
     @Query("SELECT * FROM orders WHERE date(:date) = date(date)")
     fun getAllOrdersOfDate(date: OffsetDateTime): Flow<List<Order>>
 
