@@ -3,4 +3,8 @@
     <string name="button_add_a_new_order">Add a new order</string>
     <string name="value_zero">0</string>
     <string name="button_add_items">Add items</string>
+    <string name="one_item_label">item</string>
+    <string name="several_items_label">items</string>
+    <string name="rubles_text">rubles</string>
+    <string name="which_is_text">which is</string>
 </resources>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="yalexaner.items.other.Convert" />
+
+        <variable
+            name="order"
+            type="yalexaner.items.db.Order" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/order_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16dp"
+            android:text="@{Convert.itemsToString(order.items)}"
+            tools:text="16 items"
+            android:textColor="@color/black"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/order_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/order_items"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="16dp"
+            tools:text="4 Dec, 2020"
+            android:text="@{Convert.toSimpleDateString(order.date)}"
+            android:textColor="@color/light_black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/order_fee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/editButton"
+            android:layout_alignBottom="@id/editButton"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/order_items"
+            tools:text="128 rubles"
+            android:text="@{Convert.coastToString(order.items * order.coastPerItem)}"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:textSize="25sp" />
+
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/order_items"
+            android:layout_alignBottom="@id/order_date"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/deleteButton"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_edit_24" />
+
+        <ImageButton
+            android:id="@+id/deleteButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignTop="@id/order_items"
+            android:layout_alignBottom="@id/order_date"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/ic_baseline_delete_24" />
+
+    </RelativeLayout>
+</layout>

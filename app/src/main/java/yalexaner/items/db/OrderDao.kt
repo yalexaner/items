@@ -10,7 +10,7 @@ import java.time.OffsetDateTime
 @Dao
 interface OrderDao {
 
-    @Query("SELECT * FROM orders")
+    @Query("SELECT * FROM orders ORDER BY date")
     fun getAllOrders(): Flow<List<Order>>
 
     @Query("SELECT total(items) FROM orders")

@@ -8,9 +8,7 @@
         android:name="yalexaner.items.ui.main.OrdersListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.main.OrdersListFragment"
-        tools:listitem="@layout/fragment_order" />
+        tools:listitem="@layout/item_order" />
 </layout>
