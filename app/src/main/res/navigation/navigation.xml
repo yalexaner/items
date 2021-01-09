@@ -8,15 +8,15 @@
     <fragment
         android:id="@+id/itemsFragment"
         android:name="yalexaner.items.ui.main.ItemsFragment"
-        tools:layout="@layout/fragment_items"
-        android:label="ItemsFragment" >
+        android:label="ItemsFragment"
+        tools:layout="@layout/fragment_items">
         <action
             android:id="@+id/action_itemsFragment_to_ordersListFragment"
             app:destination="@id/ordersListFragment" />
     </fragment>
     <fragment
         android:id="@+id/ordersListFragment"
-        tools:layout="@layout/fragment_orders_list"
         android:name="yalexaner.items.ui.main.OrdersListFragment"
-        android:label="OrdersListFragment" />
+        android:label="OrdersListFragment"
+        tools:layout="@layout/fragment_orders_list" />
 </navigation>
