@@ -49,4 +49,11 @@ class NewOrderActivity : AppCompatActivity() {
         const val ITEMS_COLLECTED = "yalexaner.items.ITEMS_COLLECTED"
         const val ITEMS_ORDERED = "yalexaner.items.ITEMS_ORDERED"
     }
+
+    private fun View.showSoftKeyboard() {
+        if (this.requestFocus()) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+        }
+    }
 }
