@@ -16,19 +16,29 @@ class NewOrderActivity : AppCompatActivity() {
 
         val binding: ActivityNewOrderBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_new_order)
-        val itemsInput = binding.itemsInput
+        val itemsCollected = binding.itemsCollected
+        val itemsOrdered = binding.itemsOrdered
         val addItems = binding.addItems
 
         // enable button when there is a number
-        itemsInput.doOnTextChanged { text, _, _, _ ->
+        itemsCollected.doOnTextChanged { text, _, _, _ ->
             addItems.isEnabled = !text.isNullOrEmpty()
+
+            if (addItems.isEnabled) {
+                itemsOrdered.hint = text
+            }
         }
 
+        @Suppress("NAME_SHADOWING")
         addItems.setOnClickListener {
-            val items = itemsInput.text.toString().toInt()
+            val itemsCollected = itemsCollected.text.toString().toInt()
+            val itemsOrdered = itemsOrdered.text.toString().toInt()
             val replyIntent = Intent()
 
-            replyIntent.putExtra(EXTRA_REPLY, items)
+            with(replyIntent) {
+                putExtra(ITEMS_COLLECTED, itemsCollected)
+                putExtra(ITEMS_ORDERED, itemsOrdered)
+            }
             setResult(Activity.RESULT_OK, replyIntent)
 
             finish()
@@ -36,6 +46,7 @@ class NewOrderActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY = "yalexaner.items.REPLY"
+        const val ITEMS_COLLECTED = "yalexaner.items.ITEMS_COLLECTED"
+        const val ITEMS_ORDERED = "yalexaner.items.ITEMS_ORDERED"
     }
 }

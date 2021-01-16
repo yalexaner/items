@@ -26,6 +26,6 @@ class OrderListAdapter : ListAdapter<Order, OrderListAdapter.OrderViewHolder>(Co
     companion object : DiffUtil.ItemCallback<Order>() {
         override fun areItemsTheSame(oldItem: Order, newItem: Order) = oldItem == newItem
         override fun areContentsTheSame(oldItem: Order, newItem: Order) =
-            oldItem.items == newItem.items
+            oldItem.itemsCollected == newItem.itemsCollected && oldItem.itemsOrdered == newItem.itemsOrdered
     }
 }

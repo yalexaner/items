@@ -15,7 +15,9 @@ object Convert {
     }
 
     @JvmStatic
-    fun itemsToString(items: Int) = "$items " + if (items == 1) "item" else "items"
+    fun itemsToString(itemsCollected: Int, itemsOrdered: Int): String {
+        return "$itemsCollected of $itemsOrdered " + if (itemsCollected == 1) "item" else "items"
+    }
 
     @JvmStatic
     fun coastToString(coast: Int) = "$coast " + if (coast == 1) "ruble" else "rubles"

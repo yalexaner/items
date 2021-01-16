@@ -56,10 +56,11 @@ class ItemsFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == NEW_ORDER_ACTIVITY_REQUEST_CODE) {
-            data?.getIntExtra(NewOrderActivity.EXTRA_REPLY, 0)?.let { items ->
-                val order = Order(0, OffsetDateTime.now(), items, 8)
-                orderViewModel.addItems(order)
-            }
+            val itemsCollected = data?.getIntExtra(NewOrderActivity.ITEMS_COLLECTED, 0) ?: return
+            val itemsOrdered = data.getIntExtra(NewOrderActivity.ITEMS_ORDERED, itemsCollected)
+
+            val order = Order(0, itemsCollected, itemsOrdered, OffsetDateTime.now(), 8)
+            orderViewModel.addItems(order)
         }
     }
 }

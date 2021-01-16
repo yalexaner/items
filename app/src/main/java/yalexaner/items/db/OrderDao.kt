@@ -13,17 +13,26 @@ interface OrderDao {
     @Query("SELECT * FROM orders ORDER BY date")
     fun getAllOrders(): Flow<List<Order>>
 
-    @Query("SELECT total(items) FROM orders")
-    fun getItemsCount(): Flow<Int>
-
-    @Query("SELECT total(items) FROM orders WHERE date('now') = date(date)")
-    fun getItemsCountForToday(): Flow<Int>
-
     @Query("SELECT * FROM orders WHERE date(:date) = date(date)")
     fun getAllOrdersOfDate(date: OffsetDateTime): Flow<List<Order>>
 
-    @Query("SELECT total(items) FROM orders WHERE date(:date) = date(date)")
-    fun getItemsCountForDate(date: OffsetDateTime): Int
+    @Query("SELECT total(items_collected) FROM orders")
+    fun getCollectedItemsCount(): Flow<Int>
+
+    @Query("SELECT total(items_ordered) FROM orders")
+    fun getOrderedItemsCount(): Flow<Int>
+
+    @Query("SELECT total(items_collected) FROM orders WHERE date('now') = date(date)")
+    fun getCollectedItemsCountForToday(): Flow<Int>
+
+    @Query("SELECT total(items_ordered) FROM orders WHERE date('now') = date(date)")
+    fun getOrderedItemsCountForToday(): Flow<Int>
+
+    @Query("SELECT total(items_collected) FROM orders WHERE date(:date) = date(date)")
+    fun getCollectedItemsCountForDate(date: OffsetDateTime): Int
+
+    @Query("SELECT total(items_ordered) FROM orders WHERE date(:date) = date(date)")
+    fun getOrderedItemsCountForDate(date: OffsetDateTime): Int
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(order: Order)

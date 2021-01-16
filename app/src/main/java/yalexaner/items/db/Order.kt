@@ -8,7 +8,8 @@ import java.time.OffsetDateTime
 @Entity(tableName = "orders")
 data class Order(
     @PrimaryKey(autoGenerate = true) val id: Int,
+    @ColumnInfo(name = "items_collected") val itemsCollected: Int,
+    @ColumnInfo(name = "items_ordered") val itemsOrdered: Int,
     val date: OffsetDateTime,
-    val items: Int,
-    @ColumnInfo(name = "cpi") val coastPerItem: Int
+    @ColumnInfo(name = "coast_per_item") val coastPerItem: Int
 )
