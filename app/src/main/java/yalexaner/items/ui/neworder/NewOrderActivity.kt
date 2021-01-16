@@ -1,8 +1,11 @@
 package yalexaner.items.ui.neworder
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
@@ -16,23 +19,19 @@ class NewOrderActivity : AppCompatActivity() {
 
         val binding: ActivityNewOrderBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_new_order)
-        val itemsCollected = binding.itemsCollected
-        val itemsOrdered = binding.itemsOrdered
-        val addItems = binding.addItems
 
-        // enable button when there is a number
-        itemsCollected.doOnTextChanged { text, _, _, _ ->
-            addItems.isEnabled = !text.isNullOrEmpty()
-
-            if (addItems.isEnabled) {
-                itemsOrdered.hint = text
+        binding.itemsCollected.apply {
+            showSoftKeyboard()
+            doOnTextChanged { text, _, _, _ ->
+                // enable button when there is a number
+                binding.addItems.isEnabled = !text.isNullOrEmpty()
+                binding.itemsOrdered.setText(text)
             }
         }
 
-        @Suppress("NAME_SHADOWING")
-        addItems.setOnClickListener {
-            val itemsCollected = itemsCollected.text.toString().toInt()
-            val itemsOrdered = itemsOrdered.text.toString().toInt()
+        binding.addItems.setOnClickListener {
+            val itemsCollected = binding.itemsCollected.text.toString().toInt()
+            val itemsOrdered = binding.itemsOrdered.text.toString().toInt()
             val replyIntent = Intent()
 
             with(replyIntent) {
