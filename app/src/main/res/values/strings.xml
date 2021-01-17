@@ -1,10 +1,16 @@
 <resources>
     <string name="app_name">Items</string>
     <string name="button_add_a_new_order">Add a new order</string>
-    <string name="value_zero">0</string>
     <string name="button_add_items">Add items</string>
-    <string name="one_item_label">item</string>
-    <string name="several_items_label">items</string>
-    <string name="rubles_text">rubles</string>
-    <string name="which_is_text">which is</string>
+    <string name="description_edit_button">Edit button image</string>
+    <string name="description_delete_button">Delete button image</string>
+    <string name="order_percentage">%1$d%%</string>
+    <string name="of_word">of</string>
+    <string name="order_items">%1$d of %2$d %3$s</string>
+    <string name="value_zero">0</string>
+
+    <plurals name="items">
+        <item quantity="one">item</item>
+        <item quantity="other">items</item>
+    </plurals>
 </resources>

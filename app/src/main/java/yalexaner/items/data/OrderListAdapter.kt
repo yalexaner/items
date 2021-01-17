@@ -1,5 +1,6 @@
 package yalexaner.items.data
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,7 +10,8 @@ import yalexaner.items.R
 import yalexaner.items.databinding.ItemOrderBinding
 import yalexaner.items.db.Order
 
-class OrderListAdapter : ListAdapter<Order, OrderListAdapter.OrderViewHolder>(Companion) {
+class OrderListAdapter(private val context: Context) :
+    ListAdapter<Order, OrderListAdapter.OrderViewHolder>(Companion) {
 
     class OrderViewHolder(val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -32,8 +34,10 @@ class OrderListAdapter : ListAdapter<Order, OrderListAdapter.OrderViewHolder>(Co
 
         holder.binding.apply {
             order = listItem
-            primaryAction.setBackgroundResource(background)
-            primaryAction.text = "$orderPercentage%"
+            context = this@OrderListAdapter.context
+            this.orderPercentage.setBackgroundResource(background)
+            this.orderPercentage.text =
+                this@OrderListAdapter.context.getString(R.string.order_percentage, orderPercentage)
         }
     }
 

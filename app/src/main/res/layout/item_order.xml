@@ -9,6 +9,10 @@
         <import type="yalexaner.items.other.Convert" />
 
         <variable
+            name="context"
+            type="android.content.Context" />
+
+        <variable
             name="order"
             type="yalexaner.items.db.Order" />
     </data>
@@ -24,7 +28,7 @@
         android:paddingEnd="32dp">
 
         <TextView
-            android:id="@+id/primary_action"
+            android:id="@+id/order_percentage"
             style="@style/TextAppearance.AppCompat.Body2"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -43,7 +47,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_toStartOf="@+id/edit_button"
-            android:layout_toEndOf="@id/primary_action"
+            android:layout_toEndOf="@id/order_percentage"
             android:orientation="vertical"
             android:paddingTop="16dp"
             android:paddingBottom="16dp">
@@ -54,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="@{Convert.itemsToString(order.itemsCollected, order.itemsOrdered)}"
+                android:text="@{Convert.itemsToString(order.itemsCollected, order.itemsOrdered, context)}"
                 tools:text="16 of 20 items" />
 
             <TextView
@@ -75,7 +79,7 @@
             android:layout_marginTop="16dp"
             android:layout_toStartOf="@id/delete_button"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="@string/edit_button_description"
+            android:contentDescription="@string/description_edit_button"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_baseline_edit_24" />
 
@@ -87,9 +91,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="@string/delete_button_description"
+            android:contentDescription="@string/description_delete_button"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_baseline_delete_24" />
-
     </RelativeLayout>
 </layout>

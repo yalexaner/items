@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:text="of"
+            android:text="@string/of_word"
             android:textSize="@dimen/items_count_size"
             app:layout_constraintBaseline_toBaselineOf="@+id/items_collected"
             app:layout_constraintEnd_toStartOf="@+id/items_ordered"
