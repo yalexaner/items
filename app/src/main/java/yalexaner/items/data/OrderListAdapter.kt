@@ -10,7 +10,7 @@ import yalexaner.items.R
 import yalexaner.items.databinding.ItemOrderBinding
 import yalexaner.items.db.Order
 
-class OrderListAdapter(private val context: Context) :
+class OrderListAdapter(private val context: Context, private val viewModel: OrderViewModel) :
     ListAdapter<Order, OrderListAdapter.OrderViewHolder>(Companion) {
 
     class OrderViewHolder(val binding: ItemOrderBinding) : RecyclerView.ViewHolder(binding.root)
@@ -35,6 +35,11 @@ class OrderListAdapter(private val context: Context) :
         holder.binding.apply {
             order = listItem
             context = this@OrderListAdapter.context
+
+            deleteButton.setOnClickListener {
+                viewModel.deleteOrder(listItem.id)
+            }
+
             this.orderPercentage.setBackgroundResource(background)
             this.orderPercentage.text =
                 this@OrderListAdapter.context.getString(R.string.order_percentage, orderPercentage)

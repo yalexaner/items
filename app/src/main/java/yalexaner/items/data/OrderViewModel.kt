@@ -7,12 +7,19 @@ import yalexaner.items.db.OrderRepository
 
 class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
 
-    val items: LiveData<Int> = repository.itemsCount.asLiveData()
     val itemsForToday: LiveData<Int> = repository.itemsCountForToday.asLiveData()
     val orders: LiveData<List<Order>> = repository.allOrders.asLiveData()
 
-    fun addItems(order: Order) = viewModelScope.launch {
-        repository.insert(order)
+    fun addOrder(order: Order) {
+        viewModelScope.launch {
+            repository.insert(order)
+        }
+    }
+
+    fun deleteOrder(id: Int) {
+        viewModelScope.launch {
+            repository.delete(id)
+        }
     }
 }
 

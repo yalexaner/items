@@ -25,7 +25,7 @@ class OrdersListFragment : Fragment() {
         val orderViewModel: OrderViewModel by activityViewModels {
             OrderViewModelFactory((activity?.application as OrdersApplication).repository)
         }
-        val orderAdapter = OrderListAdapter(this.requireContext())
+        val orderAdapter = OrderListAdapter(this.requireContext(), orderViewModel)
 
         binding.ordersList.apply {
             layoutManager = LinearLayoutManager(context)

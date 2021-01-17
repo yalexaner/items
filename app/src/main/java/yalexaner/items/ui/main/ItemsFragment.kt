@@ -60,7 +60,7 @@ class ItemsFragment : Fragment() {
             val itemsOrdered = data.getIntExtra(NewOrderActivity.ITEMS_ORDERED, itemsCollected)
 
             val order = Order(0, itemsCollected, itemsOrdered, OffsetDateTime.now(), 8)
-            orderViewModel.addItems(order)
+            orderViewModel.addOrder(order)
         }
     }
 }
