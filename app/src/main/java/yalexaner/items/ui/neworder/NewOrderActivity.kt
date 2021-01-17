@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
+import com.google.android.material.snackbar.Snackbar
 import yalexaner.items.R
 import yalexaner.items.databinding.ActivityNewOrderBinding
 
@@ -24,14 +25,20 @@ class NewOrderActivity : AppCompatActivity() {
             showSoftKeyboard()
             doOnTextChanged { text, _, _, _ ->
                 // enable button when there is a number
-                binding.addItems.isEnabled = !text.isNullOrEmpty()
+                binding.addItems.isEnabled = !text.isNullOrEmpty() && !text.startsWith('0')
                 binding.itemsOrdered.setText(text)
             }
         }
 
         binding.addItems.setOnClickListener {
-            val itemsCollected = binding.itemsCollected.text.toString().toInt()
-            val itemsOrdered = binding.itemsOrdered.text.toString().toInt()
+            val itemsCollected: Int = binding.itemsCollected.text.toString().toInt()
+            val itemsOrdered: Int = binding.itemsOrdered.text?.toString().takeIf { !it.isNullOrEmpty() }?.toInt() ?: 0
+
+            if (itemsOrdered == 0 || itemsOrdered < itemsCollected) {
+                Snackbar.make(binding.root, R.string.snackbar_message, Snackbar.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
             val replyIntent = Intent()
 
             replyIntent.apply {
