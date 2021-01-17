@@ -20,20 +20,30 @@
         android:clickable="true"
         android:focusable="true"
         android:minHeight="72dp"
-        android:paddingStart="?listPreferredItemPaddingLeft"
-        android:paddingEnd="?listPreferredItemPaddingRight">
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp">
+
+        <TextView
+            android:id="@+id/primary_action"
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            tools:background="@drawable/green_background"
+            tools:text="92%" />
 
         <LinearLayout
             android:id="@+id/lines_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginStart="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_toStartOf="@+id/edit_button"
+            android:layout_toEndOf="@id/primary_action"
             android:orientation="vertical"
             android:paddingTop="16dp"
             android:paddingBottom="16dp">
@@ -65,7 +75,7 @@
             android:layout_marginTop="16dp"
             android:layout_toStartOf="@id/delete_button"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="Edit button image"
+            android:contentDescription="@string/edit_button_description"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_baseline_edit_24" />
 
@@ -77,7 +87,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:background="?android:selectableItemBackground"
-            android:contentDescription="Delete button image"
+            android:contentDescription="@string/delete_button_description"
             android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_baseline_delete_24" />
 

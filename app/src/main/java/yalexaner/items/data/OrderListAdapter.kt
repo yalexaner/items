@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import yalexaner.items.R
 import yalexaner.items.databinding.ItemOrderBinding
 import yalexaner.items.db.Order
 
@@ -20,7 +21,20 @@ class OrderListAdapter : ListAdapter<Order, OrderListAdapter.OrderViewHolder>(Co
     }
 
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
-        holder.binding.order = getItem(position)
+        val listItem: Order = getItem(position)
+        val orderPercentage: Int =
+            (listItem.itemsCollected.toDouble() / listItem.itemsOrdered * 100).toInt()
+        val background = when {
+            orderPercentage >= 92 -> R.drawable.green_background
+            orderPercentage >= 60 -> R.drawable.orange_background
+            else -> R.drawable.red_background
+        }
+
+        holder.binding.apply {
+            order = listItem
+            primaryAction.setBackgroundResource(background)
+            primaryAction.text = "$orderPercentage%"
+        }
     }
 
     companion object : DiffUtil.ItemCallback<Order>() {
