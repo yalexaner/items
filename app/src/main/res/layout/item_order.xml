@@ -15,56 +15,70 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:minHeight="72dp"
+        android:paddingStart="?listPreferredItemPaddingLeft"
+        android:paddingEnd="?listPreferredItemPaddingRight">
 
-        <TextView
-            android:id="@+id/order_items"
+        <LinearLayout
+            android:id="@+id/lines_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="16dp"
-            android:text="@{Convert.itemsToString(order.itemsCollected, order.itemsOrdered)}"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            tools:text="16 of 20 items" />
+            android:layout_centerVertical="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_toStartOf="@+id/edit_button"
+            android:orientation="vertical"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
-        <TextView
-            android:id="@+id/order_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/order_items"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:text="@{Convert.toSimpleDateString(order.date)}"
-            android:textColor="@color/light_black"
-            android:textSize="20sp"
-            tools:text="4 Dec, 2020" />
+            <TextView
+                android:id="@+id/order_items"
+                style="@style/TextAppearance.AppCompat.Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@{Convert.itemsToString(order.itemsCollected, order.itemsOrdered)}"
+                tools:text="16 of 20 items" />
+
+            <TextView
+                android:id="@+id/order_date"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="@{Convert.toSimpleDateString(order.date)}"
+                tools:text="4 Dec, 2020" />
+        </LinearLayout>
 
         <ImageButton
-            android:id="@+id/editButton"
+            android:id="@+id/edit_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignTop="@id/order_items"
-            android:layout_alignBottom="@id/order_date"
-            android:layout_marginEnd="16dp"
-            android:layout_toStartOf="@id/deleteButton"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_toStartOf="@id/delete_button"
             android:background="?android:selectableItemBackground"
-            android:scaleType="fitCenter"
+            android:contentDescription="Edit button image"
+            android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_baseline_edit_24" />
 
         <ImageButton
-            android:id="@+id/deleteButton"
+            android:id="@+id/delete_button"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_alignTop="@id/order_items"
-            android:layout_alignBottom="@id/order_date"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="@null"
-            android:scaleType="fitCenter"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="?android:selectableItemBackground"
+            android:contentDescription="Delete button image"
+            android:scaleType="centerInside"
             app:srcCompat="@drawable/ic_baseline_delete_24" />
 
     </RelativeLayout>
