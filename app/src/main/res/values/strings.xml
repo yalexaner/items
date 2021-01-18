@@ -9,6 +9,8 @@
     <string name="order_items">%1$d of %2$d %3$s</string>
     <string name="value_zero">0</string>
     <string name="snackbar_message">Value can\'t start with zero or be empty</string>
+    <string name="order_deleted">The order deleted</string>
+    <string name="undo">Undo</string>
 
     <plurals name="items">
         <item quantity="one">item</item>

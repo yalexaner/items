@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import yalexaner.items.R
 import yalexaner.items.databinding.ItemOrderBinding
 import yalexaner.items.db.Order
@@ -37,7 +38,13 @@ class OrderListAdapter(private val context: Context, private val viewModel: Orde
             context = this@OrderListAdapter.context
 
             deleteButton.setOnClickListener {
+                val deletedOrder = currentList[position]
                 viewModel.deleteOrder(listItem.id)
+
+                Snackbar.make(holder.binding.root, R.string.order_deleted, Snackbar.LENGTH_SHORT)
+                    .setAction(R.string.undo) {
+                        viewModel.addOrder(deletedOrder)
+                    }.show()
             }
 
             this.orderPercentage.setBackgroundResource(background)
