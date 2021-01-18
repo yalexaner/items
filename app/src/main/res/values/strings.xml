@@ -8,7 +8,8 @@
     <string name="of_word">of</string>
     <string name="order_items">%1$d of %2$d %3$s</string>
     <string name="value_zero">0</string>
-    <string name="snackbar_message">Value can\'t start with zero or be empty</string>
+    <string name="cant_be_zero_or_empty">Value can\'t be zero or be empty</string>
+    <string name="cant_be_less">Value can\'t be less than collected items</string>
     <string name="order_deleted">The order deleted</string>
     <string name="undo">Undo</string>
 

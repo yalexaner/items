@@ -32,10 +32,15 @@ class NewOrderActivity : AppCompatActivity() {
 
         binding.addItems.setOnClickListener {
             val itemsCollected: Int = binding.itemsCollected.text.toString().toInt()
-            val itemsOrdered: Int = binding.itemsOrdered.text?.toString().takeIf { !it.isNullOrEmpty() }?.toInt() ?: 0
+            val itemsOrdered: Int =
+                binding.itemsOrdered.text?.toString().takeIf { !it.isNullOrEmpty() }?.toInt() ?: 0
 
             if (itemsOrdered == 0 || itemsOrdered < itemsCollected) {
-                Snackbar.make(binding.root, R.string.snackbar_message, Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(
+                    binding.root,
+                    if (itemsOrdered == 0) R.string.cant_be_zero_or_empty else R.string.cant_be_less,
+                    Snackbar.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
 
