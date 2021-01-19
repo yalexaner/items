@@ -38,7 +38,7 @@ class OrderListAdapter(private val context: Context, private val viewModel: Orde
             context = this@OrderListAdapter.context
 
             deleteButton.setOnClickListener {
-                val deletedOrder = currentList[position]
+                val deletedOrder = currentList[holder.layoutPosition]
                 viewModel.deleteOrder(listItem.id)
 
                 Snackbar.make(holder.binding.root, R.string.order_deleted, Snackbar.LENGTH_SHORT)
