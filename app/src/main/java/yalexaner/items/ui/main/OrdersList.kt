@@ -1,7 +1,6 @@
 package yalexaner.items.ui.main
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,14 +12,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.viewModel
 import kotlinx.coroutines.launch
+import yalexaner.items.OrdersApplication
 import yalexaner.items.R
 import yalexaner.items.data.OrderViewModel
+import yalexaner.items.data.OrderViewModelFactory
 import yalexaner.items.db.Order
 import yalexaner.items.other.toFormattedString
 import yalexaner.items.ui.theme.Green
@@ -29,10 +30,16 @@ import yalexaner.items.ui.theme.Red
 
 @ExperimentalMaterialApi
 @Composable
-fun OrdersList(viewModel: OrderViewModel) {
+fun OrdersList() {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
-    val resources = AmbientContext.current.resources
+
+    val context = AmbientContext.current
+    val application = context.applicationContext as OrdersApplication
+    val resources = context.resources
+
+    val viewModel: OrderViewModel =
+        viewModel(factory = OrderViewModelFactory(application.repository))
 
     val orders by viewModel.orders.observeAsState(emptyList())
 
@@ -43,6 +50,7 @@ fun OrdersList(viewModel: OrderViewModel) {
                     order = order,
                     onItemDeleted = {
                         viewModel.deleteOrder(order.id)
+
                         scope.launch {
                             scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
 
@@ -61,17 +69,6 @@ fun OrdersList(viewModel: OrderViewModel) {
             }
         }
     }
-}
-
-@Composable
-private fun Header() {
-    Text(
-        text = "Header",
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(color = Color.LightGray)
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    )
 }
 
 @ExperimentalMaterialApi
