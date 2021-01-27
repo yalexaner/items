@@ -6,7 +6,8 @@
     <string name="description_delete_button">Delete button image</string>
     <string name="order_percentage">%1$d%%</string>
     <string name="of_word">of</string>
-    <string name="order_items">%1$d of %2$d %3$s</string>
+    <string name="items_collected">%1$d of %2$d items collected</string>
+    <string name="items_fully_collected">%1$d %2$s collected</string>
     <string name="value_zero">0</string>
     <string name="cant_be_zero_or_empty">Value can\'t be zero or be empty</string>
     <string name="cant_be_less">Value can\'t be less than collected items</string>

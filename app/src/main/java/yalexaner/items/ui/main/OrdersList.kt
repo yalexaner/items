@@ -1,11 +1,13 @@
 package yalexaner.items.ui.main
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -13,7 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
@@ -82,9 +84,17 @@ private fun OrdersListItem(
     val itemsOrdered = order.itemsOrdered
     val orderPercentage = (itemsCollected.toDouble() / itemsOrdered * 100).toInt()
 
+    val resources = AmbientContext.current.resources
+    val textMessage: String = if (itemsCollected == itemsOrdered) {
+        val items = resources.getQuantityText(R.plurals.items, itemsCollected)
+        stringResource(id = R.string.items_fully_collected, itemsCollected, items)
+    } else {
+        stringResource(id = R.string.items_collected, itemsCollected, itemsOrdered)
+    }
+
     ListItem(
         icon = { ListIcon(orderPercentage = orderPercentage) },
-        text = { Text(text = "$itemsCollected of $itemsOrdered items collected") },
+        text = { Text(text = textMessage) },
         secondaryText = { Text(text = order.date.toFormattedString()) },
         trailing = {
             Row {

@@ -11,7 +11,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AmbientContext
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.viewModel
@@ -42,7 +42,7 @@ fun Items(navController: NavController) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = {}) {
-            Text("Add a new order", fontSize = 16.sp)
+            Text(stringResource(id = R.string.button_add_a_new_order), fontSize = 16.sp)
         }
     }
 }
