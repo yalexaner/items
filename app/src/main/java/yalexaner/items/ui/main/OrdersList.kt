@@ -88,9 +88,9 @@ private fun OrdersListItem(
         secondaryText = { Text(text = order.date.toFormattedString()) },
         trailing = {
             Row {
-                ActionButton(imageId = R.drawable.ic_baseline_edit_24, onClick = onItemEdited)
+                IconButton(onClick = onItemEdited) { Icon(imageVector = Icons.Default.Edit) }
                 Spacer(modifier = Modifier.width(8.dp))
-                ActionButton(imageId = R.drawable.ic_baseline_delete_24, onClick = onItemDeleted)
+                IconButton(onClick = onItemDeleted) { Icon(imageVector = Icons.Default.Delete) }
             }
         }
     )
@@ -114,15 +114,6 @@ private fun ListIcon(orderPercentage: Int) {
             text = "$orderPercentage%",
             style = MaterialTheme.typography.body2
         )
-    }
-}
-
-@ExperimentalMaterialApi
-@Composable
-private fun ActionButton(@DrawableRes imageId: Int, onClick: () -> Unit) {
-
-    IconButton(onClick = onClick) {
-        Icon(imageVector = vectorResource(id = imageId))
     }
 }
 
