@@ -14,8 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SoftwareKeyboardController
 import androidx.compose.ui.unit.dp
+import yalexaner.items.R
 
 @ExperimentalMaterialApi
 @Composable
@@ -34,9 +36,9 @@ fun BottomSheet(
             },
 
             text = if (bottomSheetState.isCollapsed) {
-                "Swipe up or tap to add a new order"
+                stringResource(R.string.swipe_to_add)
             } else {
-                "Adding a new order"
+                stringResource(R.string.adding_order)
             },
 
             onClicked = {

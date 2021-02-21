@@ -81,7 +81,7 @@ fun NewOrder(
                 onValueChanged = {
                     viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
                 },
-                trailingText = "ordered",
+                trailingText = stringResource(R.string.ordered),
 
                 focusRequester = orderedFocus,
                 keyboardController = keyboardController,

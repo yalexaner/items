@@ -1,20 +1,32 @@
 <resources>
     <string name="app_name">Items</string>
-    <string name="button_add_a_new_order">Add a new order</string>
+
+    <!--Buttons-->
     <string name="button_add_items">Add items</string>
-    <string name="description_edit_button">Edit button image</string>
-    <string name="description_delete_button">Delete button image</string>
-    <string name="order_percentage">%1$d%%</string>
-    <string name="of_word">of</string>
+
+    <!--List-->
     <string name="items_collected">%1$d of %2$d items collected</string>
     <string name="items_fully_collected">%1$d %2$s collected</string>
-    <string name="value_zero">0</string>
-    <string name="cant_be_zero_or_empty">Value can\'t be zero or be empty</string>
-    <string name="cant_be_less">Value can\'t be less than collected items</string>
+
+    <!--Snackbar-->
     <string name="order_deleted">The order deleted</string>
     <string name="undo">Undo</string>
+
+    <!--ItemsCard-->
     <string name="today_collected">collected for today</string>
+    <string-array name="extras">
+        <item>avr per order</item>
+        <item>min for today</item>
+        <item>max for today</item>
+    </string-array>
+
+    <!--Bottom Sheet-->
     <string name="collected">collected</string>
+    <string name="ordered">ordered</string>
+    <string name="adding_order">Adding a new order</string>
+    <string name="swipe_to_add">Swipe up or tap to add a new order</string>
+
+    <!--List Screens-->
     <string name="loading">Loading</string>
     <string name="no_orders">No orders yet</string>
 
@@ -23,9 +35,4 @@
         <item quantity="other">items</item>
     </plurals>
 
-    <string-array name="extras">
-        <item>avr per order</item>
-        <item>min for today</item>
-        <item>max for today</item>
-    </string-array>
 </resources>
