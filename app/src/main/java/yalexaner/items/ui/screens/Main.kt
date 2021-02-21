@@ -31,6 +31,7 @@ fun MainScreen() {
     val viewModel: MainViewModel =
         viewModel(factory = MainViewModelFactory(application.repository))
 
+    val items by viewModel.itemsForToday.observeAsState(0)
     val orders by viewModel.ordersForToday.observeAsState(emptyList())
 
     BottomSheetScaffold(
@@ -46,6 +47,7 @@ fun MainScreen() {
         )
 
         ItemsCard(
+            items = items,
             modifier = Modifier
                 .padding(bottom = 8.dp)
                 .padding(horizontal = 32.dp)
