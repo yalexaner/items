@@ -63,7 +63,7 @@ private fun OrdersListItem(
 
     ListItem(
         icon = { PercentageIcon(orderPercentage = orderPercentage) },
-        text = { Text(text = textMessage) },
+        text = { Text(text = textMessage, maxLines = 1) },
         secondaryText = { Text(text = order.date.toFormattedString()) },
         trailing = {
             Row {
