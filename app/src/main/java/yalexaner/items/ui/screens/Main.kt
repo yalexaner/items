@@ -16,10 +16,12 @@ import yalexaner.items.R
 import yalexaner.items.data.MainViewModel
 import yalexaner.items.data.MainViewModelFactory
 import yalexaner.items.other.average
+import yalexaner.items.other.toFormattedString
 import yalexaner.items.ui.components.MainHeader
 import yalexaner.items.ui.components.BottomSheet
 import yalexaner.items.ui.components.ItemsCard
 import yalexaner.items.ui.components.OrdersList
+import java.time.OffsetDateTime
 
 @ExperimentalMaterialApi
 @Composable
@@ -43,7 +45,7 @@ fun MainScreen() {
         scaffoldState = scaffoldState,
     ) { innerPadding ->
         MainHeader(
-            textDate = "Mon, 14th February",
+            textDate = OffsetDateTime.now().toFormattedString("EEEE, d MMMM"),
             modifier = Modifier.padding(vertical = 16.dp)
         )
 

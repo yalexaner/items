@@ -86,7 +86,9 @@ private fun OrdersListItem(
     ListItem(
         icon = { PercentageIcon(orderPercentage = orderPercentage) },
         text = { Text(text = textMessage, maxLines = 1) },
-        secondaryText = { Text(text = order.date.toFormattedString()) },
+        secondaryText = {
+            Text(text = stringResource(id = R.string.at, order.date.toFormattedString("h:mm a")))
+        },
         trailing = {
             Row {
                 IconButton(onClick = onItemEdited) { Icon(imageVector = Icons.Default.Edit) }

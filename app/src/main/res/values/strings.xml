@@ -7,6 +7,7 @@
     <!--List-->
     <string name="items_collected">%1$d of %2$d items collected</string>
     <string name="items_fully_collected">%1$d %2$s collected</string>
+    <string name="at">at %1$s</string>
 
     <!--Snackbar-->
     <string name="order_deleted">The order deleted</string>

@@ -4,8 +4,8 @@ import yalexaner.items.db.Order
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
-fun OffsetDateTime.toFormattedString(): String {
-    return format(DateTimeFormatter.ofPattern("d MMM, uuuu"))
+fun OffsetDateTime.toFormattedString(pattern: String): String {
+    return format(DateTimeFormatter.ofPattern(pattern))
 }
 
 fun String.isZeroOrEmpty(): Boolean = this == "" || this == "0"
