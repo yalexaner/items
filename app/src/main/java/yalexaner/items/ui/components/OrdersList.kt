@@ -29,13 +29,15 @@ fun OrdersList(
     onItemDeleted: (Order) -> Unit
 ) {
     LazyColumn(modifier = modifier) {
-        items(orders) { order ->
+        itemsIndexed(orders) { index, order ->
             OrdersListItem(
                 order = order,
                 onItemDeleted = { onItemDeleted(order) }
             )
 
-            Divider(startIndent = 72.dp)
+            if (index != orders.size - 1) {
+                Divider(startIndent = 72.dp)
+            }
         }
     }
 }
