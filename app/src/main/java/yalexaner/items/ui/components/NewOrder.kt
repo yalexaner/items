@@ -3,10 +3,7 @@ package yalexaner.items.ui.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
@@ -19,9 +16,11 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.AmbientContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SoftwareKeyboardController
+import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.viewModel
@@ -45,6 +44,8 @@ fun NewOrder(
     val viewModel: NewOrderViewModel =
         viewModel(factory = NewOrderViewModelFactory(application.repository))
 
+    val orderedFocus: FocusRequester = FocusRequester.Default
+
     val collected by viewModel.itemsCollected.observeAsState(initial = "")
     val ordered by viewModel.itemsOrdered.observeAsState(initial = "")
 
@@ -60,11 +61,15 @@ fun NewOrder(
                 value = collected,
                 onValueChanged = {
                     viewModel.onItemsCollectedChange(it.filter { it.isDigit() }.take(3))
+                    viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
                 },
-                label = stringResource(R.string.collected),
+                trailingText = stringResource(R.string.collected),
 
                 focusRequester = collectedFocus,
                 keyboardController = keyboardController,
+                onImeActionPerformed = { _, _ ->
+                    orderedFocus.requestFocus()
+                },
 
                 modifier = Modifier.weight(0.3F)
             )
@@ -73,10 +78,14 @@ fun NewOrder(
 
             NewOrderTextField(
                 value = ordered,
-                label = "ordered",
                 onValueChanged = {
                     viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
                 },
+                trailingText = "ordered",
+
+                focusRequester = orderedFocus,
+                keyboardController = keyboardController,
+
                 modifier = Modifier.weight(0.3F)
             )
         }
@@ -88,6 +97,8 @@ fun NewOrder(
                 viewModel.addOrder(
                     Order(0, collected.toInt(), ordered.toInt(), OffsetDateTime.now(), 8)
                 )
+                viewModel.onItemsCollectedChange("")
+                viewModel.onItemsOrderedChange("")
                 onOrderAdded()
             },
             enabled = !collected.isZeroOrEmpty() && !ordered.isZeroOrEmpty(),
@@ -107,17 +118,18 @@ fun NewOrder(
 private fun NewOrderTextField(
     modifier: Modifier = Modifier,
     value: String,
-    label: String,
+    trailingText: String,
     focusRequester: FocusRequester = FocusRequester(),
     keyboardController: MutableState<SoftwareKeyboardController?> = mutableStateOf(null),
+    onImeActionPerformed: (ImeAction, SoftwareKeyboardController?) -> Unit = { _, _ -> },
     onValueChanged: (String) -> Unit
 ) {
     OutlinedTextField(
-        value = value,
+        value = TextFieldValue(value, TextRange(value.length)),
         textStyle = MaterialTheme.typography.h4 + TextStyle(textAlign = TextAlign.Center),
-        label = { Text(text = label) },
+        trailingIcon = { Text(text = trailingText) },
 
-        onValueChange = onValueChanged,
+        onValueChange = { onValueChanged(it.text) },
 
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
@@ -126,6 +138,7 @@ private fun NewOrderTextField(
         onTextInputStarted = {
             keyboardController.value = it
         },
+        onImeActionPerformed = onImeActionPerformed,
 
         modifier = modifier.focusRequester(focusRequester = focusRequester),
     )
