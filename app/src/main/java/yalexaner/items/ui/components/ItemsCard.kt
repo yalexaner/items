@@ -1,5 +1,6 @@
 package yalexaner.items.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -12,12 +13,13 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import yalexaner.items.R
+import yalexaner.items.ui.theme.BoneColor
 
 @Composable
 fun ItemsCard(
     modifier: Modifier = Modifier,
-    items: Int,
-    extras: Array<Int?>
+    items: Int?,
+    extras: Array<Int>?
 ) {
     Card(
         elevation = 10.dp,
@@ -28,11 +30,13 @@ fun ItemsCard(
 
             Spacer(modifier = Modifier.preferredHeight(16.dp))
 
-            ItemsCardExtra(
-                modifier = Modifier.padding(bottom = 16.dp),
-                extrasItems = extras,
-                extrasInfos = stringArrayResource(id = R.array.extras)
-            )
+            if (!extras.isNullOrEmpty()) {
+                ItemsCardExtra(
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    extrasItems = extras,
+                    extrasInfos = stringArrayResource(id = R.array.extras)
+                )
+            }
         }
     }
 }
@@ -40,18 +44,29 @@ fun ItemsCard(
 @Composable
 private fun ItemsCardHeader(
     modifier: Modifier = Modifier,
-    items: Int
+    items: Int?
 ) {
-    val stringItems = AmbientContext.current.resources.getQuantityString(R.plurals.items, items)
+    val stringItems =
+        AmbientContext.current.resources.getQuantityString(R.plurals.items, items ?: 0)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.fillMaxWidth()
     ) {
-        Text(
-            text = "$items $stringItems",
-            style = MaterialTheme.typography.h4,
-        )
+        if (items != null) {
+            Text(
+                text = "$items $stringItems",
+                style = MaterialTheme.typography.h4,
+            )
+        } else {
+            Box(modifier = Modifier.background(color = BoneColor)) {
+                Text(
+                    text = "",
+                    style = MaterialTheme.typography.h4,
+                    modifier = Modifier.preferredWidth(100.dp)
+                )
+            }
+        }
 
         Text(
             text = stringResource(R.string.today_collected),
@@ -63,7 +78,7 @@ private fun ItemsCardHeader(
 @Composable
 private fun ItemsCardExtra(
     modifier: Modifier = Modifier,
-    extrasItems: Array<Int?>,
+    extrasItems: Array<Int>,
     extrasInfos: Array<String>
 ) {
     Row(
@@ -71,7 +86,7 @@ private fun ItemsCardExtra(
         modifier = modifier.fillMaxWidth()
     ) {
         repeat(extrasItems.size) { index ->
-            val items = extrasItems[index] ?: return@repeat
+            val items = extrasItems[index]
             val stringItems =
                 AmbientContext.current.resources.getQuantityString(R.plurals.items, items)
             val info = extrasInfos[index]

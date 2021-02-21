@@ -32,7 +32,7 @@ fun MainScreen() {
     val viewModel: MainViewModel =
         viewModel(factory = MainViewModelFactory(application.repository))
 
-    val items by viewModel.itemsForToday.observeAsState(0)
+    val items by viewModel.itemsForToday.observeAsState()
     val orders by viewModel.ordersForToday.observeAsState()
 
     BottomSheetScaffold(
@@ -49,10 +49,11 @@ fun MainScreen() {
 
         ItemsCard(
             items = items,
-            extras = arrayOf(
-                orders?.average(),
-                orders?.minOf { it.itemsCollected },
-                orders?.maxOf { it.itemsCollected }),
+            extras = if (!orders.isNullOrEmpty()) { arrayOf(
+                orders!!.average(),
+                orders!!.minOf { it.itemsCollected },
+                orders!!.maxOf { it.itemsCollected }
+            )} else null,
             modifier = Modifier
                 .padding(bottom = 8.dp)
                 .padding(horizontal = 32.dp)

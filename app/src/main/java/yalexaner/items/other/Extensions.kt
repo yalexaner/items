@@ -10,4 +10,7 @@ fun OffsetDateTime.toFormattedString(): String {
 
 fun String.isZeroOrEmpty(): Boolean = this == "" || this == "0"
 
-fun List<Order>.average(): Int = sumBy { it.itemsCollected } / size
+fun List<Order>.average(): Int {
+    if (size == 0) return 0
+    return sumBy { it.itemsCollected } / size
+}
