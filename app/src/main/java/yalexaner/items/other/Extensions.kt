@@ -1,6 +1,6 @@
 package yalexaner.items.other
 
-import androidx.compose.ui.input.key.Key
+import yalexaner.items.db.Order
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 
@@ -10,10 +10,4 @@ fun OffsetDateTime.toFormattedString(): String {
 
 fun String.isZeroOrEmpty(): Boolean = this == "" || this == "0"
 
-fun Key.isDigit() = this in arrayOf(
-    Key.Zero, Key.One,
-    Key.Two, Key.Three,
-    Key.Four, Key.Five,
-    Key.Six, Key.Seven,
-    Key.Eight, Key.Nine
-)
+fun List<Order>.average(): Int = sumBy { it.itemsCollected } / size

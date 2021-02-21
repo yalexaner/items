@@ -16,17 +16,21 @@ import yalexaner.items.R
 @Composable
 fun ItemsCard(
     modifier: Modifier = Modifier,
-    items: Int
+    items: Int,
+    extras: Array<Int?>
 ) {
     Card(
-        elevation = 5.dp,
+        elevation = 10.dp,
         modifier = modifier
     ) {
         Column {
-            ItemsCardHeader(items = items)
+            ItemsCardHeader(items = items, modifier = Modifier.padding(top = 16.dp))
+
+            Spacer(modifier = Modifier.preferredHeight(16.dp))
+
             ItemsCardExtra(
-                modifier = Modifier.padding(vertical = 16.dp),
-                extrasItems = arrayOf(23, 15, 53),
+                modifier = Modifier.padding(bottom = 16.dp),
+                extrasItems = extras,
                 extrasInfos = stringArrayResource(id = R.array.extras)
             )
         }
@@ -59,7 +63,7 @@ private fun ItemsCardHeader(
 @Composable
 private fun ItemsCardExtra(
     modifier: Modifier = Modifier,
-    extrasItems: Array<Int>,
+    extrasItems: Array<Int?>,
     extrasInfos: Array<String>
 ) {
     Row(
@@ -67,7 +71,7 @@ private fun ItemsCardExtra(
         modifier = modifier.fillMaxWidth()
     ) {
         repeat(extrasItems.size) { index ->
-            val items = extrasItems[index]
+            val items = extrasItems[index] ?: return@repeat
             val stringItems =
                 AmbientContext.current.resources.getQuantityString(R.plurals.items, items)
             val info = extrasInfos[index]

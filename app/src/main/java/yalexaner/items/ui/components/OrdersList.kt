@@ -25,6 +25,28 @@ import yalexaner.items.ui.theme.Red
 @Composable
 fun OrdersList(
     modifier: Modifier = Modifier,
+    orders: List<Order>?,
+    onItemDeleted: (Order) -> Unit
+) {
+    if (!orders.isNullOrEmpty()) {
+        List(modifier = modifier, orders = orders, onItemDeleted = onItemDeleted)
+    } else {
+        Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+            Text(
+                text = if (orders == null) {
+                    stringResource(R.string.loading)
+                } else {
+                    stringResource(R.string.no_orders)
+                }
+            )
+        }
+    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+private fun List(
+    modifier: Modifier = Modifier,
     orders: List<Order>,
     onItemDeleted: (Order) -> Unit
 ) {

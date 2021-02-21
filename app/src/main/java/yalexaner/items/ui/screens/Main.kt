@@ -15,6 +15,7 @@ import yalexaner.items.OrdersApplication
 import yalexaner.items.R
 import yalexaner.items.data.MainViewModel
 import yalexaner.items.data.MainViewModelFactory
+import yalexaner.items.other.average
 import yalexaner.items.ui.components.MainHeader
 import yalexaner.items.ui.components.BottomSheet
 import yalexaner.items.ui.components.ItemsCard
@@ -32,7 +33,7 @@ fun MainScreen() {
         viewModel(factory = MainViewModelFactory(application.repository))
 
     val items by viewModel.itemsForToday.observeAsState(0)
-    val orders by viewModel.ordersForToday.observeAsState(emptyList())
+    val orders by viewModel.ordersForToday.observeAsState()
 
     BottomSheetScaffold(
         sheetContent = {
@@ -48,6 +49,10 @@ fun MainScreen() {
 
         ItemsCard(
             items = items,
+            extras = arrayOf(
+                orders?.average(),
+                orders?.minOf { it.itemsCollected },
+                orders?.maxOf { it.itemsCollected }),
             modifier = Modifier
                 .padding(bottom = 8.dp)
                 .padding(horizontal = 32.dp)
