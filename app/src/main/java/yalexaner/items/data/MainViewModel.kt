@@ -8,7 +8,7 @@ import yalexaner.items.db.OrderRepository
 class MainViewModel(private val repository: OrderRepository) : ViewModel() {
 
     val itemsForToday: LiveData<Int> = repository.itemsCountForToday.asLiveData()
-    val orders: LiveData<List<Order>> = repository.allOrders.asLiveData()
+    val ordersForToday: LiveData<List<Order>> = repository.ordersForToday.asLiveData()
 
     fun addOrder(order: Order) {
         viewModelScope.launch {

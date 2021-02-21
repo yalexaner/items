@@ -31,7 +31,7 @@ fun MainScreen() {
     val viewModel: MainViewModel =
         viewModel(factory = MainViewModelFactory(application.repository))
 
-    val orders by viewModel.orders.observeAsState(emptyList())
+    val orders by viewModel.ordersForToday.observeAsState(emptyList())
 
     BottomSheetScaffold(
         sheetContent = {

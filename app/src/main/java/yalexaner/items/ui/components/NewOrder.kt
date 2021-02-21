@@ -1,4 +1,4 @@
-package yalexaner.items.ui.main
+package yalexaner.items.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
