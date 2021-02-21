@@ -13,9 +13,17 @@
     <string name="cant_be_less">Value can\'t be less than collected items</string>
     <string name="order_deleted">The order deleted</string>
     <string name="undo">Undo</string>
+    <string name="today_collected">collected for today</string>
+    <string name="collected">collected</string>
 
     <plurals name="items">
         <item quantity="one">item</item>
         <item quantity="other">items</item>
     </plurals>
+
+    <string-array name="extras">
+        <item>avr per order</item>
+        <item>avr per hour</item>
+        <item>max for today</item>
+    </string-array>
 </resources>

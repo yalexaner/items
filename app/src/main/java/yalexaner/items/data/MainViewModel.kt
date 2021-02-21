@@ -5,7 +5,7 @@ import kotlinx.coroutines.launch
 import yalexaner.items.db.Order
 import yalexaner.items.db.OrderRepository
 
-class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
+class MainViewModel(private val repository: OrderRepository) : ViewModel() {
 
     val itemsForToday: LiveData<Int> = repository.itemsCountForToday.asLiveData()
     val orders: LiveData<List<Order>> = repository.allOrders.asLiveData()
@@ -23,11 +23,11 @@ class OrderViewModel(private val repository: OrderRepository) : ViewModel() {
     }
 }
 
-class OrderViewModelFactory(private val repository: OrderRepository) : ViewModelProvider.Factory {
+@Suppress("UNCHECKED_CAST")
+class MainViewModelFactory(private val repository: OrderRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(OrderViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
-            return OrderViewModel(repository) as T
+        if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+            return MainViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
