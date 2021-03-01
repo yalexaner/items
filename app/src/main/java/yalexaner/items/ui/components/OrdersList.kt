@@ -3,6 +3,7 @@ package yalexaner.items.ui.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -11,7 +12,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import yalexaner.items.R
@@ -75,7 +76,7 @@ private fun OrdersListItem(
     val itemsOrdered = order.itemsOrdered
     val orderPercentage = (itemsCollected.toDouble() / itemsOrdered * 100).toInt()
 
-    val resources = AmbientContext.current.resources
+    val resources = LocalContext.current.resources
     val textMessage: String = if (itemsCollected == itemsOrdered) {
         val items = resources.getQuantityText(R.plurals.items, itemsCollected)
         stringResource(id = R.string.items_fully_collected, itemsCollected, items)
@@ -91,9 +92,19 @@ private fun OrdersListItem(
         },
         trailing = {
             Row {
-                IconButton(onClick = onItemEdited) { Icon(imageVector = Icons.Default.Edit) }
-                Spacer(modifier = Modifier.preferredWidth(8.dp))
-                IconButton(onClick = onItemDeleted) { Icon(imageVector = Icons.Default.Delete) }
+                IconButton(onClick = onItemEdited) {
+                    Icon(
+                        imageVector = Icons.Default.Edit,
+                        contentDescription = null
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                IconButton(onClick = onItemDeleted) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = null
+                    )
+                }
             }
         }
     )

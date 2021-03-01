@@ -1,15 +1,20 @@
 package yalexaner.items.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.SnackbarResult
+import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import yalexaner.items.OrdersApplication
 import yalexaner.items.R
@@ -23,12 +28,13 @@ import yalexaner.items.ui.components.ItemsCard
 import yalexaner.items.ui.components.OrdersList
 import java.time.OffsetDateTime
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
 fun MainScreen() {
     val scaffoldState = rememberBottomSheetScaffoldState()
     val scope = rememberCoroutineScope()
-    val context = AmbientContext.current
+    val context = LocalContext.current
 
     val application = context.applicationContext as OrdersApplication
     val viewModel: MainViewModel =

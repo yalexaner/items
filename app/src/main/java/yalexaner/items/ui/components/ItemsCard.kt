@@ -8,7 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -28,7 +28,7 @@ fun ItemsCard(
         Column {
             ItemsCardHeader(items = items, modifier = Modifier.padding(top = 16.dp))
 
-            Spacer(modifier = Modifier.preferredHeight(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             if (!extras.isNullOrEmpty()) {
                 ItemsCardExtra(
@@ -47,7 +47,7 @@ private fun ItemsCardHeader(
     items: Int?
 ) {
     val stringItems =
-        AmbientContext.current.resources.getQuantityString(R.plurals.items, items ?: 0)
+        LocalContext.current.resources.getQuantityString(R.plurals.items, items ?: 0)
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -63,7 +63,7 @@ private fun ItemsCardHeader(
                 Text(
                     text = "",
                     style = MaterialTheme.typography.h4,
-                    modifier = Modifier.preferredWidth(100.dp)
+                    modifier = Modifier.width(100.dp)
                 )
             }
         }
@@ -88,7 +88,7 @@ private fun ItemsCardExtra(
         repeat(extrasItems.size) { index ->
             val items = extrasItems[index]
             val stringItems =
-                AmbientContext.current.resources.getQuantityString(R.plurals.items, items)
+                LocalContext.current.resources.getQuantityString(R.plurals.items, items)
             val info = extrasInfos[index]
 
             Text(

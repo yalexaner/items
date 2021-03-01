@@ -2,20 +2,22 @@ package yalexaner.items.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.platform.AmbientContext
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
@@ -23,7 +25,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.viewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import yalexaner.items.OrdersApplication
 import yalexaner.items.R
 import yalexaner.items.data.NewOrderViewModel
@@ -33,14 +35,14 @@ import yalexaner.items.other.isZeroOrEmpty
 import java.time.OffsetDateTime
 import java.util.*
 
+@ExperimentalComposeUiApi
 @Composable
 fun NewOrder(
     collectedFocus: FocusRequester = FocusRequester.Default,
-    keyboardController: MutableState<SoftwareKeyboardController?> = mutableStateOf(null),
     onOrderAdded: () -> Unit = {}
 ) {
     val application: OrdersApplication =
-        AmbientContext.current.applicationContext as OrdersApplication
+        LocalContext.current.applicationContext as OrdersApplication
     val viewModel: NewOrderViewModel =
         viewModel(factory = NewOrderViewModelFactory(application.repository))
 
@@ -58,39 +60,32 @@ fun NewOrder(
     ) {
         Row {
             NewOrderTextField(
+                modifier = Modifier.weight(0.3F),
                 value = collected,
-                onValueChanged = {
-                    viewModel.onItemsCollectedChange(it.filter { it.isDigit() }.take(3))
-                    viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
-                },
                 trailingText = stringResource(R.string.collected),
 
                 focusRequester = collectedFocus,
-                keyboardController = keyboardController,
-                onImeActionPerformed = { _, _ ->
-                    orderedFocus.requestFocus()
-                },
+                onImeActionPerformed = { orderedFocus.requestFocus() }
+            ) {
+                viewModel.onItemsCollectedChange(it.filter { it.isDigit() }.take(3))
+                viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
+            }
 
-                modifier = Modifier.weight(0.3F)
-            )
-
-            Spacer(modifier = Modifier.preferredWidth(16.dp))
+            Spacer(modifier = Modifier.width(16.dp))
 
             NewOrderTextField(
+                modifier = Modifier.weight(0.3F),
                 value = ordered,
-                onValueChanged = {
-                    viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
-                },
                 trailingText = stringResource(R.string.ordered),
 
                 focusRequester = orderedFocus,
-                keyboardController = keyboardController,
-
-                modifier = Modifier.weight(0.3F)
+                onValueChanged = {
+                    viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
+                }
             )
         }
 
-        Spacer(modifier = Modifier.preferredHeight(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Button(
             onClick = {
@@ -114,14 +109,14 @@ fun NewOrder(
     }
 }
 
+@ExperimentalComposeUiApi
 @Composable
 private fun NewOrderTextField(
     modifier: Modifier = Modifier,
     value: String,
     trailingText: String,
     focusRequester: FocusRequester = FocusRequester(),
-    keyboardController: MutableState<SoftwareKeyboardController?> = mutableStateOf(null),
-    onImeActionPerformed: (ImeAction, SoftwareKeyboardController?) -> Unit = { _, _ -> },
+    onImeActionPerformed: () -> Unit = {},
     onValueChanged: (String) -> Unit
 ) {
     OutlinedTextField(
@@ -135,10 +130,9 @@ private fun NewOrderTextField(
             keyboardType = KeyboardType.Number,
             imeAction = ImeAction.Next
         ),
-        onTextInputStarted = {
-            keyboardController.value = it
-        },
-        onImeActionPerformed = onImeActionPerformed,
+        keyboardActions = KeyboardActions(
+            onNext = { onImeActionPerformed() }
+        ),
 
         modifier = modifier.focusRequester(focusRequester = focusRequester),
     )
