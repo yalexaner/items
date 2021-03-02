@@ -8,9 +8,9 @@ fun OffsetDateTime.toFormattedString(pattern: String): String {
     return format(DateTimeFormatter.ofPattern(pattern))
 }
 
-fun String.isZeroOrEmpty(): Boolean = this == "" || this == "0"
+fun String.isZeroOrEmpty() = this == "" || this == "0"
 
-fun List<Order>.average(): Int {
-    if (size == 0) return 0
-    return sumBy { it.itemsCollected } / size
+fun List<Order>.average() = when (size) {
+    0 -> 0
+    else -> sumBy { it.collected } / size
 }

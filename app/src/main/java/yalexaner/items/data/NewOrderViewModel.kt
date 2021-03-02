@@ -12,12 +12,17 @@ class NewOrderViewModel(private val repository: OrderRepository) : ViewModel() {
     private val _itemsOrdered = MutableLiveData<String>()
     val itemsOrdered: LiveData<String> get() = _itemsOrdered
 
-    fun onItemsCollectedChange(value: String) {
+    fun onBothItemsChange(value: String) {
         _itemsCollected.value = value
+        _itemsOrdered.value = value
     }
 
     fun onItemsOrderedChange(value: String) {
         _itemsOrdered.value = value
+    }
+
+    fun clearItems() {
+        onBothItemsChange("")
     }
 
     fun addOrder(order: Order) {

@@ -1,6 +1,5 @@
 package yalexaner.items.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
@@ -59,8 +58,8 @@ fun MainScreen() {
             items = items,
             extras = if (!orders.isNullOrEmpty()) { arrayOf(
                 orders!!.average(),
-                orders!!.minOf { it.itemsCollected },
-                orders!!.maxOf { it.itemsCollected }
+                orders!!.minOf { it.collected },
+                orders!!.maxOf { it.collected }
             )} else null,
             modifier = Modifier
                 .padding(bottom = 8.dp)

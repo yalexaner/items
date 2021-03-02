@@ -24,7 +24,7 @@ import yalexaner.items.R
 @ExperimentalMaterialApi
 @Composable
 fun BottomSheet(
-    bottomSheetState: BottomSheetState = rememberBottomSheetState(BottomSheetValue.Collapsed)
+    bottomSheetState: BottomSheetState
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = FocusRequester()
@@ -58,7 +58,7 @@ fun BottomSheet(
 
         Divider()
 
-        NewOrder(collectedFocus = focusRequester) {
+        NewOrder(firstFieldFocus = focusRequester) {
             scope.launch {
                 bottomSheetState.collapse()
                 keyboardController?.hideSoftwareKeyboard()

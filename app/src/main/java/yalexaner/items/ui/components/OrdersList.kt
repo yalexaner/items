@@ -72,8 +72,8 @@ private fun OrdersListItem(
     onItemEdited: () -> Unit = {},
     onItemDeleted: () -> Unit = {}
 ) {
-    val itemsCollected = order.itemsCollected
-    val itemsOrdered = order.itemsOrdered
+    val itemsCollected = order.collected
+    val itemsOrdered = order.ordered
     val orderPercentage = (itemsCollected.toDouble() / itemsOrdered * 100).toInt()
 
     val resources = LocalContext.current.resources

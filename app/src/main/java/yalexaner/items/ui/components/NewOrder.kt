@@ -32,21 +32,19 @@ import yalexaner.items.data.NewOrderViewModel
 import yalexaner.items.data.NewOrderViewModelFactory
 import yalexaner.items.db.Order
 import yalexaner.items.other.isZeroOrEmpty
-import java.time.OffsetDateTime
 import java.util.*
 
 @ExperimentalComposeUiApi
 @Composable
 fun NewOrder(
-    collectedFocus: FocusRequester = FocusRequester.Default,
+    firstFieldFocus: FocusRequester = FocusRequester.Default,
+    secondFieldFocus: FocusRequester = FocusRequester.Default,
     onOrderAdded: () -> Unit = {}
 ) {
     val application: OrdersApplication =
         LocalContext.current.applicationContext as OrdersApplication
     val viewModel: NewOrderViewModel =
         viewModel(factory = NewOrderViewModelFactory(application.repository))
-
-    val orderedFocus: FocusRequester = FocusRequester.Default
 
     val collected by viewModel.itemsCollected.observeAsState(initial = "")
     val ordered by viewModel.itemsOrdered.observeAsState(initial = "")
@@ -58,54 +56,76 @@ fun NewOrder(
             .fillMaxWidth()
             .padding(16.dp)
     ) {
-        Row {
-            NewOrderTextField(
-                modifier = Modifier.weight(0.3F),
-                value = collected,
-                trailingText = stringResource(R.string.collected),
-
-                focusRequester = collectedFocus,
-                onImeActionPerformed = { orderedFocus.requestFocus() }
-            ) {
-                viewModel.onItemsCollectedChange(it.filter { it.isDigit() }.take(3))
-                viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
-            }
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            NewOrderTextField(
-                modifier = Modifier.weight(0.3F),
-                value = ordered,
-                trailingText = stringResource(R.string.ordered),
-
-                focusRequester = orderedFocus,
-                onValueChanged = {
-                    viewModel.onItemsOrderedChange(it.filter { it.isDigit() }.take(3))
-                }
-            )
-        }
+        TextFields(
+            values = collected to ordered,
+            focuses = firstFieldFocus to secondFieldFocus,
+            onValueChanged = viewModel::onBothItemsChange to viewModel::onItemsOrderedChange
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(
-            onClick = {
-                viewModel.addOrder(
-                    Order(0, collected.toInt(), ordered.toInt(), OffsetDateTime.now(), 8)
-                )
-                viewModel.onItemsCollectedChange("")
-                viewModel.onItemsOrderedChange("")
-                onOrderAdded()
-            },
             enabled = !collected.isZeroOrEmpty() && !ordered.isZeroOrEmpty(),
-            shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(
-                text = stringResource(id = R.string.button_add_items).toUpperCase(Locale.ROOT),
-                style = MaterialTheme.typography.button,
-                modifier = Modifier.padding(8.dp)
-            )
-        }
+            onClick = {
+                val order = Order(collected = collected.toInt(), ordered = ordered.toInt())
+
+                viewModel.addOrder(order)
+                viewModel.clearItems()
+                onOrderAdded()
+            }
+        )
+    }
+}
+
+@ExperimentalComposeUiApi
+@Composable
+private fun TextFields(
+    values: Pair<String, String>,
+    focuses: Pair<FocusRequester, FocusRequester>,
+    onValueChanged: Pair<(String) -> Unit, (String) -> Unit>
+) {
+    Row {
+        NewOrderTextField(
+            value = values.first,
+            trailingText = stringResource(R.string.collected),
+
+            focusRequester = focuses.first,
+            onImeActionPerformed = { focuses.second },
+            onValueChanged = onValueChanged.first,
+
+            modifier = Modifier.weight(0.3F)
+        )
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        NewOrderTextField(
+            value = values.second,
+            trailingText = stringResource(R.string.ordered),
+
+            focusRequester = focuses.second,
+            onValueChanged = onValueChanged.second,
+
+            modifier = Modifier.weight(0.3F),
+        )
+    }
+}
+
+@Composable
+private fun Button(
+    enabled: Boolean = true,
+    onClick: () -> Unit,
+) {
+    Button(
+        onClick = onClick,
+        enabled = enabled,
+        shape = RoundedCornerShape(16.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text(
+            text = stringResource(id = R.string.button_add_items).toUpperCase(Locale.ROOT),
+            style = MaterialTheme.typography.button,
+            modifier = Modifier.padding(8.dp)
+        )
     }
 }
 
@@ -124,7 +144,9 @@ private fun NewOrderTextField(
         textStyle = MaterialTheme.typography.h4 + TextStyle(textAlign = TextAlign.Center),
         trailingIcon = { Text(text = trailingText) },
 
-        onValueChange = { onValueChanged(it.text) },
+        onValueChange = { newValue ->
+            onValueChanged(newValue.text.filter { it.isDigit() }.take(3))
+        },
 
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number,
