@@ -1,5 +1,6 @@
 package yalexaner.items.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -20,6 +21,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import yalexaner.items.R
 
+private const val TAG = "ApplicationTag"
+
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
@@ -28,27 +31,27 @@ fun BottomSheet(
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = FocusRequester()
-    val scope = CoroutineScope(Dispatchers.Default)
+    val scope = CoroutineScope(Dispatchers.Main)
+
+    Log.i(TAG, "BottomSheet: ${bottomSheetState.progress.from} to ${bottomSheetState.progress.to}")
+    Log.i(TAG, "BottomSheet: ${bottomSheetState.currentValue}")
 
     Column {
         BottomSheetHeader(
-            icon = if (bottomSheetState.isCollapsed) {
-                Icons.Default.KeyboardArrowUp
-            } else {
-                Icons.Default.KeyboardArrowDown
+            icon = when (bottomSheetState.progress.to) {
+                BottomSheetValue.Collapsed -> Icons.Default.KeyboardArrowUp
+                BottomSheetValue.Expanded -> Icons.Default.KeyboardArrowDown
             },
 
-            text = if (bottomSheetState.isCollapsed) {
-                stringResource(R.string.swipe_to_add)
-            } else {
-                stringResource(R.string.adding_order)
+            text = when (bottomSheetState.progress.to) {
+                BottomSheetValue.Collapsed -> stringResource(id = R.string.swipe_to_add)
+                BottomSheetValue.Expanded -> stringResource(id = R.string.adding_order)
             },
 
             onClicked = {
-                if (bottomSheetState.isCollapsed) {
-                    scope.launch { bottomSheetState.expand() }
-                } else {
-                    scope.launch {
+                when (bottomSheetState.isCollapsed) {
+                    true -> scope.launch { bottomSheetState.expand() }
+                    false -> scope.launch {
                         bottomSheetState.collapse()
                         keyboardController?.hideSoftwareKeyboard()
                     }

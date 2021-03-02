@@ -21,9 +21,9 @@ import yalexaner.items.data.MainViewModel
 import yalexaner.items.data.MainViewModelFactory
 import yalexaner.items.other.average
 import yalexaner.items.other.toFormattedString
-import yalexaner.items.ui.components.MainHeader
 import yalexaner.items.ui.components.BottomSheet
 import yalexaner.items.ui.components.ItemsCard
+import yalexaner.items.ui.components.MainHeader
 import yalexaner.items.ui.components.OrdersList
 import java.time.OffsetDateTime
 
@@ -56,11 +56,11 @@ fun MainScreen() {
 
         ItemsCard(
             items = items,
-            extras = if (!orders.isNullOrEmpty()) { arrayOf(
+            extras = if (!orders.isNullOrEmpty()) arrayOf(
                 orders!!.average(),
                 orders!!.minOf { it.collected },
                 orders!!.maxOf { it.collected }
-            )} else null,
+            ) else null,
             modifier = Modifier
                 .padding(bottom = 8.dp)
                 .padding(horizontal = 32.dp)
