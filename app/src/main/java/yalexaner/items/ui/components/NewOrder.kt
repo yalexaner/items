@@ -90,7 +90,7 @@ private fun TextFields(
             trailingText = stringResource(R.string.collected),
 
             focusRequester = focuses.first,
-            onImeActionPerformed = { focuses.second },
+            onImeActionPerformed = { focuses.second.requestFocus() },
             onValueChanged = onValueChanged.first,
 
             modifier = Modifier.weight(0.3F)
