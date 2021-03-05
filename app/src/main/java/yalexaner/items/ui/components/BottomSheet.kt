@@ -1,6 +1,5 @@
 package yalexaner.items.ui.components
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -8,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -16,25 +16,17 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import yalexaner.items.R
 
-private const val TAG = "ApplicationTag"
-
-@ExperimentalComposeUiApi
-@ExperimentalMaterialApi
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheet(
     bottomSheetState: BottomSheetState
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusRequester = FocusRequester()
-    val scope = CoroutineScope(Dispatchers.Main)
-
-    Log.i(TAG, "BottomSheet: ${bottomSheetState.progress.from} to ${bottomSheetState.progress.to}")
-    Log.i(TAG, "BottomSheet: ${bottomSheetState.currentValue}")
+    val scope = rememberCoroutineScope()
 
     Column {
         BottomSheetHeader(
