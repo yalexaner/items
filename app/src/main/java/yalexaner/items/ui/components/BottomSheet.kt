@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -25,7 +26,7 @@ fun BottomSheet(
     bottomSheetState: BottomSheetState
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    val focusRequester = FocusRequester()
+    val focusRequester = remember { FocusRequester() }
     val scope = rememberCoroutineScope()
 
     Column {
@@ -42,7 +43,11 @@ fun BottomSheet(
 
             onClicked = {
                 when (bottomSheetState.isCollapsed) {
-                    true -> scope.launch { bottomSheetState.expand() }
+                    true -> scope.launch {
+                        bottomSheetState.expand()
+                        focusRequester.requestFocus()
+                        keyboardController?.showSoftwareKeyboard()
+                    }
                     false -> scope.launch {
                         bottomSheetState.collapse()
                         keyboardController?.hideSoftwareKeyboard()
